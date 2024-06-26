@@ -1,0 +1,13 @@
+name: Deploy
+# @author @cdonat-ist
+# If doubt about set Workflow trigger.
+# @see {@link https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#using-filters}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉"

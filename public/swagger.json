@@ -1,0 +1,1850 @@
+{
+	"openapi": "3.0.0",
+	"paths": {
+		"/auth/login": {
+			"post": {
+				"operationId": "AuthController_login",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginUserDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/auth/logout": {
+			"post": {
+				"operationId": "AuthController_logout",
+				"parameters": [],
+				"responses": {
+					"201": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/auth/recover": {
+			"post": {
+				"operationId": "AuthController_requestPasswordUpdate",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"description": "Email is only required",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PassResetDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": {
+						"description": "Successfully send email"
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/auth/recover/{uuid}": {
+			"get": {
+				"operationId": "AuthController_recoverTokenIsValid",
+				"parameters": [
+					{
+						"name": "uuid",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/auth/profile": {
+			"get": {
+				"operationId": "AuthController_getProfile",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"cookie": []
+					}
+				]
+			}
+		},
+		"/auth/recover/{uuid}/refresh": {
+			"patch": {
+				"operationId": "AuthController_refreshRecoverToken",
+				"parameters": [
+					{
+						"name": "uuid",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/auth/recover/{uuid}/reset": {
+			"patch": {
+				"operationId": "AuthController_recoverPassword",
+				"parameters": [
+					{
+						"name": "uuid",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"description": "Password is only required",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdatePassDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Auth"
+				]
+			}
+		},
+		"/users": {
+			"post": {
+				"operationId": "UserController_post",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserDto"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateUserDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				]
+			}
+		},
+		"/users/all": {
+			"get": {
+				"operationId": "UserController_getAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserDto"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "UserController_getById",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				]
+			},
+			"put": {
+				"operationId": "UserController_patch",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				]
+			},
+			"delete": {
+				"operationId": "UserController_deleteById",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Successfully deleted"
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"cookie": []
+					}
+				]
+			}
+		},
+		"/roles": {
+			"post": {
+				"operationId": "RoleController_post",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateRoleDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleDto"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateRoleDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Role"
+				]
+			}
+		},
+		"/roles/all": {
+			"get": {
+				"operationId": "RoleController_getAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoleDto"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Role"
+				]
+			}
+		},
+		"/roles/{id}": {
+			"get": {
+				"operationId": "RoleController_getById",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Role"
+				]
+			},
+			"patch": {
+				"operationId": "RoleController_update",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateRoleDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Role"
+				]
+			},
+			"delete": {
+				"operationId": "RoleController_delete",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Successfully deleted"
+					}
+				},
+				"tags": [
+					"Role"
+				]
+			}
+		},
+		"/sensor": {
+			"post": {
+				"operationId": "SensorController_create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSensorApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SensorApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/user": {
+			"post": {
+				"operationId": "SensorController_createByUser",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputSensorApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SensorApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/all": {
+			"get": {
+				"operationId": "SensorController_getAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/SensorApi"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/user/{id}": {
+			"get": {
+				"operationId": "SensorController_getAllSensorByUser",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/SensorApi"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/{mac}/user/{user_id}": {
+			"get": {
+				"operationId": "SensorController_getSensorFromUser",
+				"parameters": [
+					{
+						"name": "mac",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "user_id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SensorApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			},
+			"put": {
+				"operationId": "SensorController_update",
+				"parameters": [
+					{
+						"name": "mac",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "user_id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputConnectApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SensorApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/{mac}/user/{user_id}/disconnect": {
+			"put": {
+				"operationId": "SensorController_disconnectSensorToUser",
+				"parameters": [
+					{
+						"name": "mac",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "user_id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/{mac}/user/{user_id}/connect": {
+			"put": {
+				"operationId": "SensorController_connectSensorToUser",
+				"parameters": [
+					{
+						"name": "mac",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "user_id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputConnectApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/sensor/{mac}": {
+			"delete": {
+				"operationId": "SensorController_deactivatedSensor",
+				"summary": "",
+				"description": "Desativa um _Sensor_",
+				"parameters": [
+					{
+						"name": "mac",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": ""
+					}
+				},
+				"tags": [
+					"Sensors"
+				]
+			}
+		},
+		"/ppes": {
+			"post": {
+				"operationId": "PpeController_create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePpeApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PpeApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ppes"
+				]
+			}
+		},
+		"/ppes/all": {
+			"get": {
+				"operationId": "PpeController_getAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/PpeApi"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ppes"
+				]
+			}
+		},
+		"/ppes/{id}": {
+			"get": {
+				"operationId": "PpeController_getOne",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PpeApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ppes"
+				]
+			},
+			"patch": {
+				"operationId": "PpeController_update",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdatePpeApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PpeApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ppes"
+				]
+			},
+			"delete": {
+				"operationId": "PpeController_delete",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PpeApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Ppes"
+				]
+			}
+		},
+		"/scans": {
+			"post": {
+				"operationId": "ScanController_create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputScanApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ScanApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Scans"
+				]
+			}
+		},
+		"/scans/all": {
+			"get": {
+				"operationId": "ScanController_getAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ScanApi"
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Scans"
+				]
+			}
+		},
+		"/scans/{id}": {
+			"get": {
+				"operationId": "ScanController_getOne",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ScanApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Scans"
+				]
+			},
+			"patch": {
+				"operationId": "ScanController_update",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateScanApi"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ScanApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Scans"
+				]
+			},
+			"delete": {
+				"operationId": "ScanController_delete",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ScanApi"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Scans"
+				]
+			}
+		}
+	},
+	"info": {
+		"title": "Sistema de Gestão e Monitoramento de EPIs (backend)",
+		"description": "The API description",
+		"version": "1.0.0",
+		"contact": {}
+	},
+	"tags": [],
+	"servers": [],
+	"components": {
+		"securitySchemes": {
+			"bearer": {
+				"scheme": "bearer",
+				"bearerFormat": "JWT",
+				"type": "http"
+			},
+			"cookie": {
+				"type": "apiKey",
+				"in": "cookie",
+				"name": "jwt"
+			}
+		},
+		"schemas": {
+			"LoginUserDto": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "E-mail"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8,
+						"pattern": "(\\W{1})",
+						"description": "Senha"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				]
+			},
+			"PassResetDTO": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "E-mail"
+					}
+				},
+				"required": [
+					"email"
+				]
+			},
+			"UpdatePassDTO": {
+				"type": "object",
+				"properties": {
+					"password": {
+						"type": "string",
+						"minLength": 8,
+						"pattern": "(\\W{1})",
+						"description": "Senha"
+					}
+				},
+				"required": [
+					"password"
+				]
+			},
+			"CreateUserDto": {
+				"type": "object",
+				"properties": {
+					"roleCode": {
+						"description": "Nível de acesso",
+						"default": "EMPLOYEE",
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Primeiro nome"
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Sobrenome"
+					},
+					"company": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "E-mail"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8,
+						"pattern": "(\\W{1})",
+						"description": "Senha"
+					},
+					"phone": {
+						"description": "Telefone",
+						"type": "string",
+						"minLength": 9,
+						"maxLength": 15
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"company",
+					"email",
+					"password"
+				]
+			},
+			"UserDto": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"minimum": 0,
+						"exclusiveMinimum": 0,
+						"description": "ID"
+					},
+					"roleCode": {
+						"description": "Nível de acesso",
+						"default": "EMPLOYEE",
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Primeiro nome"
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Sobrenome"
+					},
+					"company": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "E-mail"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8,
+						"pattern": "(\\W{1})",
+						"description": "Senha"
+					},
+					"phone": {
+						"description": "Telefone",
+						"type": "string",
+						"minLength": 9,
+						"maxLength": 15
+					},
+					"verifiedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Data de quando foi verificado o perfil"
+					},
+					"createAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Data de quando foi criado"
+					},
+					"updateAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Data de quando foi atualizado"
+					}
+				},
+				"required": [
+					"id",
+					"firstName",
+					"lastName",
+					"company",
+					"email",
+					"password"
+				]
+			},
+			"UpdateUserDto": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Primeiro nome"
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 50,
+						"description": "Sobrenome"
+					},
+					"company": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "E-mail"
+					},
+					"phone": {
+						"description": "Telefone",
+						"type": "string",
+						"minLength": 9,
+						"maxLength": 15
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"company",
+					"email"
+				]
+			},
+			"CreateRoleDto": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"description": "Nível de acesso",
+						"type": "string"
+					},
+					"title": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 100,
+						"description": "Título"
+					},
+					"description": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 300,
+						"description": "Descrição"
+					}
+				},
+				"required": [
+					"code",
+					"title",
+					"description"
+				]
+			},
+			"RoleDto": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"minimum": 0,
+						"exclusiveMinimum": 0,
+						"description": "ID"
+					},
+					"code": {
+						"description": "Nível de acesso",
+						"type": "string"
+					},
+					"title": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 100,
+						"description": "Título"
+					},
+					"description": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 300,
+						"description": "Descrição"
+					}
+				},
+				"required": [
+					"code",
+					"title",
+					"description"
+				]
+			},
+			"UpdateRoleDto": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"description": "Nível de acesso",
+						"type": "string"
+					},
+					"title": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 100,
+						"description": "Título"
+					},
+					"description": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 300,
+						"description": "Descrição"
+					}
+				},
+				"required": [
+					"code",
+					"title",
+					"description"
+				]
+			},
+			"CreateSensorApi": {
+				"type": "object",
+				"properties": {
+					"macAddress": {
+						"description": "Endereço MAC",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(-|:|3%A|)){5}([0-9A-Fa-f]{2})$"
+					},
+					"label": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Etiqueta"
+					},
+					"description": {
+						"type": "string",
+						"description": "Descrição"
+					},
+					"currentPpe": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"macAddress",
+					"label",
+					"currentPpe"
+				]
+			},
+			"SensorApi": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"description": "ID"
+					},
+					"macAddress": {
+						"description": "Endereço MAC",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(-|:|3%A|)){5}([0-9A-Fa-f]{2})$"
+					},
+					"label": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Etiqueta"
+					},
+					"description": {
+						"type": "string",
+						"description": "Descrição"
+					},
+					"currentPpe": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"macAddress",
+					"label",
+					"currentPpe"
+				]
+			},
+			"InputSensorApi": {
+				"type": "object",
+				"properties": {
+					"macAddress": {
+						"description": "Endereço MAC",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(-|:|3%A|)){5}([0-9A-Fa-f]{2})$"
+					},
+					"label": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Etiqueta"
+					},
+					"description": {
+						"type": "string",
+						"description": "Descrição"
+					},
+					"currentPpe": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					},
+					"userId": {
+						"type": "number",
+						"minimum": 0,
+						"exclusiveMinimum": 0,
+						"description": "ID"
+					}
+				},
+				"required": [
+					"macAddress",
+					"label",
+					"currentPpe",
+					"userId"
+				]
+			},
+			"InputConnectApi": {
+				"type": "object",
+				"properties": {
+					"description": {
+						"type": "string",
+						"description": "Descrição"
+					},
+					"lastRead": {
+						"default": "2024-03-06T20:20:15.977Z",
+						"type": "string",
+						"format": "date-time",
+						"description": "Data de quando foi criado"
+					},
+					"currentPpe": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"currentPpe"
+				]
+			},
+			"CreatePpeApi": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Nome"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				]
+			},
+			"PpeApi": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"description": "ID"
+					},
+					"name": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Nome"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				]
+			},
+			"UpdatePpeApi": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"minLength": 6,
+						"description": "Nome"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				]
+			},
+			"InputScanApi": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "number"
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Horário da leitura",
+						"nullable": true
+					},
+					"temperature": {
+						"type": "number",
+						"description": "Temperatura"
+					},
+					"oxygenation": {
+						"type": "number",
+						"description": "Oxigenação"
+					},
+					"pulseRate": {
+						"type": "number",
+						"description": "Pulsação"
+					},
+					"accelerometerX": {
+						"type": "number",
+						"description": "Aceleração eixo X"
+					},
+					"accelerometerY": {
+						"type": "number",
+						"description": "Aceleração eixo Y"
+					},
+					"accelerometerZ": {
+						"type": "number",
+						"description": "Aceleração eixo Z"
+					},
+					"latitude": {
+						"type": "number",
+						"description": "Latitude"
+					},
+					"longitude": {
+						"type": "number",
+						"description": "Longitude"
+					},
+					"smartphoneMacAddress": {
+						"description": "Endereço MAC (Smart Phone)",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(|-|:|3%A)){5}([0-9A-Fa-f]{2})$"
+					},
+					"ppeInUse": {
+						"default": false,
+						"type": "boolean",
+						"description": "EPI em uso"
+					},
+					"sensorMac": {
+						"description": "Endereço MAC (Smart Phone)",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(|-|:|3%A)){5}([0-9A-Fa-f]{2})$"
+					},
+					"ppeType": {
+						"type": "string",
+						"enum": [
+							"HELMET",
+							"GLOVE",
+							"BOOT"
+						],
+						"description": "Tipo de EPI"
+					}
+				},
+				"required": [
+					"userId",
+					"timestamp",
+					"temperature",
+					"oxygenation",
+					"pulseRate",
+					"accelerometerX",
+					"accelerometerY",
+					"accelerometerZ",
+					"latitude",
+					"longitude",
+					"smartphoneMacAddress",
+					"sensorMac",
+					"ppeType"
+				]
+			},
+			"ScanApi": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid",
+						"description": "ID"
+					},
+					"ppeId": {
+						"type": "string"
+					},
+					"sensorId": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "number"
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Horário da leitura",
+						"nullable": true
+					},
+					"temperature": {
+						"type": "number",
+						"description": "Temperatura"
+					},
+					"oxygenation": {
+						"type": "number",
+						"description": "Oxigenação"
+					},
+					"pulseRate": {
+						"type": "number",
+						"description": "Pulsação"
+					},
+					"accelerometerX": {
+						"type": "number",
+						"description": "Aceleração eixo X"
+					},
+					"accelerometerY": {
+						"type": "number",
+						"description": "Aceleração eixo Y"
+					},
+					"accelerometerZ": {
+						"type": "number",
+						"description": "Aceleração eixo Z"
+					},
+					"latitude": {
+						"type": "number",
+						"description": "Latitude"
+					},
+					"longitude": {
+						"type": "number",
+						"description": "Longitude"
+					},
+					"smartphoneMacAddress": {
+						"description": "Endereço MAC (Smart Phone)",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(|-|:|3%A)){5}([0-9A-Fa-f]{2})$"
+					},
+					"ppeInUse": {
+						"default": false,
+						"type": "boolean",
+						"description": "EPI em uso"
+					}
+				},
+				"required": [
+					"ppeId",
+					"sensorId",
+					"userId",
+					"timestamp",
+					"temperature",
+					"oxygenation",
+					"pulseRate",
+					"accelerometerX",
+					"accelerometerY",
+					"accelerometerZ",
+					"latitude",
+					"longitude",
+					"smartphoneMacAddress"
+				]
+			},
+			"UpdateScanApi": {
+				"type": "object",
+				"properties": {
+					"ppeId": {
+						"type": "string"
+					},
+					"sensorId": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "number"
+					},
+					"timestamp": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Horário da leitura",
+						"nullable": true
+					},
+					"temperature": {
+						"type": "number",
+						"description": "Temperatura"
+					},
+					"oxygenation": {
+						"type": "number",
+						"description": "Oxigenação"
+					},
+					"pulseRate": {
+						"type": "number",
+						"description": "Pulsação"
+					},
+					"accelerometerX": {
+						"type": "number",
+						"description": "Aceleração eixo X"
+					},
+					"accelerometerY": {
+						"type": "number",
+						"description": "Aceleração eixo Y"
+					},
+					"accelerometerZ": {
+						"type": "number",
+						"description": "Aceleração eixo Z"
+					},
+					"latitude": {
+						"type": "number",
+						"description": "Latitude"
+					},
+					"longitude": {
+						"type": "number",
+						"description": "Longitude"
+					},
+					"smartphoneMacAddress": {
+						"description": "Endereço MAC (Smart Phone)",
+						"type": "string",
+						"pattern": "^([0-9A-Fa-f]{2}(|-|:|3%A)){5}([0-9A-Fa-f]{2})$"
+					},
+					"ppeInUse": {
+						"default": false,
+						"type": "boolean",
+						"description": "EPI em uso"
+					}
+				},
+				"required": [
+					"ppeId",
+					"sensorId",
+					"userId",
+					"timestamp",
+					"temperature",
+					"oxygenation",
+					"pulseRate",
+					"accelerometerX",
+					"accelerometerY",
+					"accelerometerZ",
+					"latitude",
+					"longitude",
+					"smartphoneMacAddress"
+				]
+			}
+		}
+	}
+}

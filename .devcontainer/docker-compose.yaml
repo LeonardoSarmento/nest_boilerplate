@@ -1,0 +1,46 @@
+name: nest_boilerplate
+
+services:
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}-app
+    build:
+      context: .
+      target: ${BUILD_TARGET:-dev}
+    restart: unless-stopped
+    environment:
+      - APP_PORT=${APP_PORT}
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - 5555:5555
+    networks:
+      - nest_boilerplate-networks
+    deploy:
+      resources:
+        # aws lightsail container (nano)
+        limits:
+          cpus: '0.25'
+          memory: '512MB'
+  postgres:
+    image: postgres:15.4
+    restart: unless-stopped
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+    networks:
+      - nest_boilerplate-networks
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '1.0GB'
+
+networks:
+  nest_boilerplate-networks:
+
+volumes:
+  psql-data:
