@@ -5,8 +5,6 @@
 
 ## Info
 
-[![ER Diagram on DBDiagram](src/database/docs/446098-sgme-erd-v1_0_2.png)](https://dbdiagram.io/embed/6524024affbf5169f05316eb)
-
 ## Tech Stack
 
 ### Main Techs
